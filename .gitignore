@@ -1,0 +1,14 @@
+# ignore all the data file
+data/*
+
+# ignore results
+results/*
+
+# ignore test-related files
+*test*
+
+# python-related
+__pycache__
+
+# mac-related
+.DS_Store

@@ -1,0 +1,6 @@
+# put the list of tags you used to search for the items here with form
+#   tag_name: tag1 tag2 ...
+
+
+# examples:
+accession: HMDB0001522 HMDB0002434 HMDB0012275 HMDB0001406 HMDB0002064
