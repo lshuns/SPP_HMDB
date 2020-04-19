@@ -8,30 +8,61 @@ Created on Fri Apr 17 12:24:43 2020
 Scripts to transfer xml-form info to feather-form info
 """
 
-import time
+import xml.etree.ElementTree as et
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
-import os
-import sys
-# Self-defined package
-sys.path.insert(0, os.path.realpath('..')) 
-from source import io_related, xml
+def parse_XML_main(xml_file): 
+    """
+    Only extract the text from the main tags of the nodes
+        (ignore all the sub-tag info)
+    
+    cols (or tags) are using the first element's tags
+    """
 
-# ++++++++++++++++++++++++++ Setting
-# original data
-inpath = "../data/hmdb_metabolites.xml"
-# out data
-outpath = "../data/hmdb_metabolites_main.feather"
-# save form
-save_form = 'feather'
+    tree = et.parse(xml_file)
+    root = tree.getroot()    
+    
+    # Use the first element's tags 
+    #   as the reference
+    cols = []
+    for child in root[0]:
+        cols.append(child.tag)
+    print(cols)
+    
+    rows = []
+    for node in root:
+        vals = []
+        for col in cols:
+            if node.find(col) is not None:
+                val = node.find(col).text
+                if val != None:
+                    if ('\n' in val):
+                        val = 'TBD'
+                vals.append(val)
+            else:
+                vals.append(None)
+        rows.append({cols[i]: vals[i]
+                        for i in range(len(cols))})
+    
+    df = pd.DataFrame(data=rows)
+    
+    return df      
 
+if __name__ == "__main__":
+    import time
+  
+    # ++++++++++++++++++++++++++ Setting
+    # original data
+    inpath = "../data/hmdb_metabolites.xml"
+    # out data
+    outpath = "../data/hmdb_metabolites_main.feather"
 
-# ++++++++++++++++++++++++++ Running
-Start = time.time()
-# main tags' info
-df_main = xml.parse_XML_main(inpath)
-io_related.save_df(df_main, outpath, file_form=save_form)
-print("main tags' info saved in", outpath)
-print("Finished in", time.time()-Start)
+    # ++++++++++++++++++++++++++ Running
+    Start = time.time()
+    # main tags' info
+    df_main = parse_XML_main(inpath)
+    df_main.to_feather(outpath)
+    print("main tags' info saved in", outpath)
+    print("Finished in", time.time()-Start)

@@ -11,12 +11,6 @@ Scripts to search desired info
 import numpy as np
 import pandas as pd
 
-import os
-import sys
-# Self-defined package
-sys.path.insert(0, os.path.realpath('..')) 
-from source import io_related
-
 # read input info
 input_info = np.genfromtxt('../input_info.param', dtype='str')
 # check the name of the tags
@@ -51,5 +45,5 @@ df_main_selec = df_main[df_main[tag_name].isin(tags)][res_names]
 
 # save results to csv
 out_path = '../results/' + outfile
-io_related.save_df(df_main_selec, out_path, file_form='csv')
+df_main_selec.to_csv(out_path, index=False)
 print("Required info saved as csv in", out_path)

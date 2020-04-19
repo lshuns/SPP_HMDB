@@ -1,8 +1,52 @@
 # put the outfile name & tag names for the infomation you wanted here with form:
 #   outfile: tag1 tag2 ...
 # current supported tag names
-#['version', 'creation_date', 'update_date', 'accession', 'status', 'secondary_accessions', 'name', 'cs_description', 'description', 'synonyms', 'chemical_formula', 'average_molecular_weight', 'monisotopic_molecular_weight', 'iupac_name', 'traditional_iupac', 'cas_registry_number', 'smiles', 'inchi', 'inchikey', 'taxonomy', 'ontology', 'state', 'experimental_properties', 'predicted_properties', 'spectra', 'biological_properties', 'normal_concentrations', 'abnormal_concentrations', 'diseases', 'kegg_id', 'chebi_id', 'chemspider_id', 'pubchem_compound_id', 'foodb_id', 'drugbank_id', 'phenol_explorer_compound_id', 'meta_cyc_id', 'wikipedia_id', 'knapsack_id', 'bigg_id', 'metlin_id', 'pdb_id', 'synthesis_reference', 'general_references', 'protein_associations']
 
-
-# examples
-test.csv: creation_date update_date accession status secondary_accessions name synonyms chemical_formula average_molecular_weight monisotopic_molecular_weight
+# examples 
+# you can simply add # in front of the undesired tags
+test.csv: 
+abnormal_concentrations
+HMDB_ID
+average_molecular_weight
+bigg_id
+biological_properties
+cas_registry_number
+chebi_id
+chemical_formula
+chemspider_id
+#creation_date
+#cs_description
+#description
+diseases
+drugbank_id
+experimental_properties
+foodb_id
+general_references
+inchi
+inchikey
+iupac_name
+kegg_id
+knapsack_id
+meta_cyc_id
+metlin_id
+monisotopic_molecular_weight
+name
+normal_concentrations
+ontology
+pdb_id
+phenol_explorer_compound_id
+predicted_properties
+protein_associations
+pubchem_compound_id
+#secondary_accessions
+smiles
+#spectra
+state
+status
+synonyms
+synthesis_reference
+taxonomy
+traditional_iupac
+#update_date
+#version
+#wikipedia_id
