@@ -44,6 +44,8 @@ df_main_selec = df_main[df_main[tag_name].isin(tags)][res_names]
 # print(df_main_selec)
 
 # save results to csv
+if not os.path.exists('../results/'):
+        os.makedirs('../results/')
 out_path = '../results/' + outfile
 df_main_selec.to_csv(out_path, index=False)
 print("Required info saved as csv in", out_path)
