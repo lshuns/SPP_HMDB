@@ -9,15 +9,39 @@ Scripts to search desired info
 """
 
 import os
+import argparse
+
 import numpy as np
 import pandas as pd
 
+__version__ = "SPP_HMDB v0.2"
+
+# ++++++++++++++ parser for command-line interfaces
+parser = argparse.ArgumentParser(
+    description=f"{__version__}: extract chemical info from HMDB database.",
+    formatter_class=argparse.RawTextHelpFormatter)
+parser.add_argument(
+    "--input_info", type=str, metavar='param_file',
+    help="A configuration file including input info.\n")
+parser.add_argument(
+    "--desired_info", type=str, metavar='param_file',
+    help="A configuration file including desired info.\n")
+parser.add_argument(
+    '--version', action='version', version=__version__,
+    help="The pipeline version.")
+
+## arg parser
+args = parser.parse_args()
+input_file = args.input_info
+desired_file = args.desired_info
+
 # read input info
-input_info = np.genfromtxt('input_info.param', dtype='str')
+input_info = np.genfromtxt(input_file, dtype='str')
 # check the name of the tags
 if ':' in input_info[0]:
     tag_name = input_info[0].replace(":", "")
     print(f"Search info using `{tag_name}` as input...")
+tag_name0 = tag_name
 # tags
 print("Targets:")
 tags = []
@@ -26,7 +50,7 @@ for tag in input_info[1:]:
 print(tags)
 
 # read output info
-out_info = np.genfromtxt('desired_info.param', dtype='str')
+out_info = np.genfromtxt(desired_file, dtype='str')
 # check the output file name
 if ':' in out_info[0]:
     outfile = out_info[0].replace(":", "")
@@ -65,7 +89,6 @@ if tag_name == 'synonyms':
 
     # get the HMDB_ID 
     tags = tags_id
-    tag_name0 = tag_name
     tag_name = 'HMDB_ID'
 
     # build a dataframe for synonyms
@@ -81,11 +104,22 @@ if tag_name == 'synonyms':
 # read database
 df = pd.read_feather("../data/hmdb_metabolites_main.feather")
 # search tags & values
-df_main_selec = df[df[tag_name].isin(tags)][res_names]
-# print(df_main_selec)
+try:
+    df_main_selec = df[df[tag_name].isin(tags)][res_names]
+    # print(df_main_selec)
+## include sub-classes
+except KeyError:
+    tmp_name_str = '_'.join(res_names)
 
-# add synonym to the output
-if tag_name0 == 'synonyms':
+    # +++++++++++ taxonomy
+    if 'taxonomy' in tmp_name_str:
+       df_sub = pd.read_feather("../data/hmdb_metabolites_taxonomy.feather")
+       df = df.merge(df_sub, on='HMDB_ID', how='left')
+
+    df_main_selec = df[df[tag_name].isin(tags)][res_names]   
+
+ # add synonym to the output
+if (tag_name0 == 'synonyms'):
     df_main_selec = df_main_selec.merge(df_syn, on='HMDB_ID')  
 
 # save results to csv

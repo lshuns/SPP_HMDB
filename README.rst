@@ -2,24 +2,26 @@
  SPP_HMDB: Search PiPeline for the Human Metabolome Database (HMDB)
 ===================================================================
 
-Simple pipeline for quest of information in the Human Metabolome Database (HMDB, https://hmdb.ca/). 
+Simple pipeline for quest of information from the Human Metabolome Database (HMDB, https://hmdb.ca/). 
 
 Build the local database
 -----------------------
 
-1. Download the latest database from https://hmdb.ca/system/downloads/current/hmdb_metabolites.zip
+1. download the latest database from https://hmdb.ca/system/downloads/current/hmdb_metabolites.zip
 
-2. run xml2feather.py from scripts/ (Warning: demanding mechine memory required, better to run on a cluster.)
+2. unzip downloaded file
+
+3. run xml2feather.py from scripts/ to build the local database (Warning: demanding mechine memory required, better to run on a cluster.)
 
 
 Query
 -----------------------
 
-1. Go to running/ and build `desired_info.param' and  `input_info.param' as the form shown in corresponding example files.
+1. go to running/ and build two configuration files to specify the queried elements (`input_info.param') and the desired columns (`desired_info.param') as the form shown in corresponding example files.
 
-2. Run run.py
+2. change corresponding param file names in running.sh and run with `bash running.sh`
 
-3. Find desired table file in results/
+3. find desired table file in results/
 
 
 Current supported tags:
@@ -60,11 +62,21 @@ fbonto_id
 synthesis_reference
 synonyms
 
+taxonomy_description
+taxonomy_direct_parent
+taxonomy_kingdom
+taxonomy_super_class
+taxonomy_class
+taxonomy_sub_class
+taxonomy_molecular_framework
+taxonomy_alternative_parents
+taxonomy_substituents
+taxonomy_external_descriptors
+
 TBD tags:
 -----------------------
 
 secondary_accessions
-taxonomy
 ontology
 experimental_properties
 predicted_properties

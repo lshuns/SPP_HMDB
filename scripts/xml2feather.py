@@ -8,6 +8,8 @@ Created on Fri Apr 17 12:24:43 2020
 Scripts to transfer xml-form info to feather-form info
 """
 
+import re
+
 import xml.etree.ElementTree as et
 from lxml import etree
 
@@ -83,10 +85,40 @@ def parse_XML_synonyms(xml_file):
     
     return df      
 
+def parse_XML_taxonomy(xml_file): 
+    """
+    Extract sub-classes from taxonomy.
+    """
+
+    rows = []
+    for _, element in etree.iterparse(xml_file, tag='{http://www.hmdb.ca}taxonomy'):
+
+        ## get unique id
+        metabolite = element.getparent()
+        HMDB_ID = metabolite.findtext('{http://www.hmdb.ca}accession')
+        cols_name = ['HMDB_ID']
+        cols_val = [HMDB_ID]
+
+        ## get child info
+        for child in element:
+            tag_full = child.tag
+            tag_useful = re.search('{http://www.hmdb.ca}(.*)', tag_full).group(1)
+            cols_name.append(f'taxonomy_{tag_useful}')
+            cols_val.append(child.text)
+
+        rows.append({cols_name[i]: cols_val[i]
+                        for i in range(len(cols_val))})
+        
+    df = pd.DataFrame(data=rows)
+    
+    return df      
+
+
 if __name__ == "__main__":
     import time
   
     # # ++++++++++++++++++++++++++ main data
+    ############## 114222 unique rows
     # # original data
     # inpath = "../data/hmdb_metabolites.xml"
     # # out data
@@ -101,17 +133,33 @@ if __name__ == "__main__":
     # print("Finished in", time.time()-Start)
     # # Finished in 308.7
 
-    # ++++++++++++++++++++++++++ synonyms info
+    # # ++++++++++++++++++++++++++ synonyms info
+    # # original data
+    # inpath = "../data/hmdb_metabolites.xml"
+    # # out data
+    # outpath = "../data/hmdb_metabolites_synonyms.feather"
+    # # Running
+    # Start = time.time()
+    # # tags' info
+    # df_syn = parse_XML_synonyms(inpath)
+    # print(df_syn)
+    # df_syn.to_feather(outpath)
+    # print("Synonyms info saved in", outpath)
+    # print("Finished in", time.time()-Start)
+    # # Finished in 208.3602416515350
+
+    # ++++++++++++++++++++++++++ taxonomy sub-classes
     # original data
     inpath = "../data/hmdb_metabolites.xml"
     # out data
-    outpath = "../data/hmdb_metabolites_synonyms.feather"
+    outpath = "../data/hmdb_metabolites_taxonomy.feather"
     # Running
     Start = time.time()
     # tags' info
-    df_syn = parse_XML_synonyms(inpath)
-    print(df_syn)
+    df_syn = parse_XML_taxonomy(inpath)
+    # print(df_syn)
     df_syn.to_feather(outpath)
-    print("Synonyms info saved in", outpath)
+    print("taxonomy info saved in", outpath)
     print("Finished in", time.time()-Start)
-    # Finished in 208.3602416515350
+    # Finished in 125.56326818466187
+
