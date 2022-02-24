@@ -6,6 +6,7 @@ results/*
 
 # ignore test-related files
 *test*
+hack_*
 
 # python-related
 __pycache__

@@ -1,52 +1,65 @@
-# put the outfile name & tag names for the infomation you wanted here with form:
-#   outfile: tag1 tag2 ...
-# current supported tag names
+# put the outfile name & tag names for the infomation you wanted here
+### below is an example
+###### you can simply add # in front of the undesired tags OR copy ones you like to other file
 
-# examples 
-# you can simply add # in front of the undesired tags
+# saved file name
 test.csv: 
-abnormal_concentrations
-HMDB_ID
-average_molecular_weight
-bigg_id
-biological_properties
-cas_registry_number
-chebi_id
-chemical_formula
-chemspider_id
-#creation_date
-#cs_description
-#description
-diseases
-drugbank_id
-experimental_properties
-foodb_id
-general_references
-inchi
-inchikey
-iupac_name
-kegg_id
-knapsack_id
-meta_cyc_id
-metlin_id
-monisotopic_molecular_weight
+
+# version
+# creation_date
+# update_date
+# accession
+# status
+# secondary_accessions/accession
 name
-normal_concentrations
-ontology
-pdb_id
-phenol_explorer_compound_id
-predicted_properties
-protein_associations
-pubchem_compound_id
-#secondary_accessions
+# description
+# synonyms/synonym
+chemical_formula
+# average_molecular_weight
+# monisotopic_molecular_weight
+# iupac_name
+# traditional_iupac
+# cas_registry_number
 smiles
-#spectra
-state
-status
-synonyms
-synthesis_reference
-taxonomy
-traditional_iupac
-#update_date
-#version
-#wikipedia_id
+# inchi
+# inchikey
+# taxonomy/description
+# taxonomy/direct_parent
+# taxonomy/kingdom
+taxonomy/super_class
+taxonomy/class
+taxonomy/sub_class
+# taxonomy/molecular_framework
+# taxonomy/alternative_parents
+# taxonomy/substituents
+# taxonomy/external_descriptors
+# ontology/root
+# state
+# experimental_properties/property
+# predicted_properties/property
+# spectra/spectrum
+# biological_properties/cellular_locations
+# biological_properties/biospecimen_locations
+# biological_properties/tissue_locations
+# biological_properties/pathways
+#normal_concentrations/concentration
+#abnormal_concentrations/concentration
+# diseases/disease
+# kegg_id
+# foodb_id
+# chemspider_id
+# drugbank_id
+# pdb_id
+# chebi_id
+# pubchem_compound_id
+# biocyc_id
+# wikipedia_id
+# knapsack_id
+# phenol_explorer_compound_id
+# bigg_id
+# metlin_id
+# vmh_id
+# fbonto_id
+# synthesis_reference
+# general_references/reference
+# protein_associations/protein

@@ -11,79 +11,190 @@ Build the local database
 
 2. unzip downloaded file
 
-3. run xml2feather.py from scripts/ to build the local database (Warning: demanding mechine memory required, better to run on a cluster.)
-
+3. mv downloaded file to ./data/ and name it as hmdb_metabolites.xml
 
 Query
 -----------------------
 
 1. go to running/ and build two configuration files to specify the queried elements (`input_info.param') and the desired columns (`desired_info.param') as the form shown in corresponding example files.
 
-2. change corresponding param file names in running.sh and run with `bash running.sh`
+2. change corresponding param file names in running.sh and run with `bash running.sh` 
 
 3. find desired table file in results/
 
 
-Current supported tags:
+All supported tags:
 -----------------------
 
 version
+
+
 creation_date
+
+
 update_date
-HMDB_ID
+
+
+accession
+
+
 status
+
+
+secondary_accessions/accession
+
+
 name
+
+
 description
+
+
+synonyms/synonym
+
+
 chemical_formula
+
+
 average_molecular_weight
+
+
 monisotopic_molecular_weight
+
+
 iupac_name
+
+
 traditional_iupac
+
+
 cas_registry_number
+
+
 smiles
+
+
 inchi
+
+
 inchikey
+
+
+taxonomy/description
+
+
+taxonomy/direct_parent
+
+
+taxonomy/kingdom
+
+
+taxonomy/super_class
+
+
+taxonomy/class
+
+
+taxonomy/sub_class
+
+
+taxonomy/molecular_framework
+
+
+taxonomy/alternative_parents
+
+
+taxonomy/substituents
+
+
+taxonomy/external_descriptors
+
+
+ontology/root
+
+
 state
+
+
+experimental_properties/property
+
+
+predicted_properties/property
+
+
+spectra/spectrum
+
+
+biological_properties/cellular_locations
+
+
+biological_properties/biospecimen_locations
+
+
+biological_properties/tissue_locations
+
+
+biological_properties/pathways
+
+
+normal_concentrations/concentration
+
+
+abnormal_concentrations/concentration
+
+
+diseases/disease
+
+
 kegg_id
+
+
 foodb_id
+
+
 chemspider_id
+
+
 drugbank_id
+
+
 pdb_id
+
+
 chebi_id
+
+
 pubchem_compound_id
+
+
 biocyc_id
+
+
 wikipedia_id
+
+
 knapsack_id
+
+
 phenol_explorer_compound_id
+
+
 bigg_id
+
+
 metlin_id
+
+
 vmh_id
+
+
 fbonto_id
+
+
 synthesis_reference
-synonyms
 
-taxonomy_description
-taxonomy_direct_parent
-taxonomy_kingdom
-taxonomy_super_class
-taxonomy_class
-taxonomy_sub_class
-taxonomy_molecular_framework
-taxonomy_alternative_parents
-taxonomy_substituents
-taxonomy_external_descriptors
 
-TBD tags:
------------------------
+general_references/reference
 
-secondary_accessions
-ontology
-experimental_properties
-predicted_properties
-spectra
-biological_properties
-normal_concentrations
-abnormal_concentrations
-diseases
-general_references
-protein_associations
+
+protein_associations/protein
